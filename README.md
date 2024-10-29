@@ -1,50 +1,120 @@
-# React + TypeScript + Vite
+# Couchbase RBAC Integration with Permit.io 🔐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A demonstration of implementing Role-Based Access Control (RBAC) for Couchbase N1QL queries using Permit.io. This project shows how to build a secure query system that validates user permissions before executing database operations.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (v14 or higher)
+- Couchbase Capella/Server
+- Permit.io Account
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 Getting Started
 
-- Configure the top-level `parserOptions` property like this:
+### 1. Clone the Repository
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/Arindam200/permit-couchbase
+cd couchbase-permit-rbac
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Set Up Environment Variables
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Create a `.env` file in the backend directory:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```env
+PORT=3001
+PERMIT_SDK_TOKEN=your_permit_sdk_token
+CB_STRING=your_couchbase_connection_string
+CB_USERNAME=your_couchbase_username
+CB_PASSWORD=your_couchbase_password
 ```
+
+### 3. Install Dependencies
+
+Backend server:
+```bash
+# Install backend dependencies
+cd backend
+npm install
+```
+Frontend:
+```
+# Install frontend dependencies
+npm install
+```
+
+### 4. Configure Permit.io
+
+1. Create a Permit.io account
+2. Set up the following resources:
+   - Route
+   - Airport
+   - Hotel
+   - Airline
+
+3. Create the following roles:
+   - Traveler
+   - Travel Agent
+   - Airline Staff
+   - Hotel Staff
+
+4. Configure permissions in the Policy Editor
+
+### 5. Run the Application
+
+```bash
+# Start the backend server
+cd backend
+npm start
+
+# Start the frontend application
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+## 🏗️ Project Structure
+
+```
+├── backend/
+│   ├── server.js          # Express server and main logic
+│   ├── package.json
+│   └── .env
+├── frontend/
+│   ├── src/
+│   │   ├── App.tsx      # Main React component
+│   │   └── ...
+│   └── package.json
+└── README.md
+```
+
+## 🔍 Usage
+
+1. Access the frontend application
+2. Enter a N1QL query in the query input field
+3. Provide a user email address
+4. Click "Check Permissions"
+5. View the results or permission denial message
+
+Example Query:
+```sql
+SELECT * FROM `travel-sample` WHERE type = "hotel"
+```
+
+## 🔒 Security Features
+
+- Query parsing and validation
+- Permission-based query modification
+- Role-based access control
+
+## 💬 Support
+
+For questions and support, please join our [Slack community](https://io.permit.io/permitslack).
+
+## 📚 Additional Resources
+
+- [Permit.io Documentation](https://docs.permit.io)
+- [Couchbase Documentation](https://docs.couchbase.com)
+- [RBAC vs ABAC Guide](https://www.permit.io/blog/rbac-vs-abac)
+- [Adding ABAC to Your Application](https://www.permit.io/abac)
