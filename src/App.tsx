@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function App() {
   const [query, setQuery] = useState('');
-  const [user, setUser] = useState('');
+  const [userId, setUser] = useState('');
   const [result, setResult] = useState<null | { success: boolean; results?: any[]; error?: string }>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,7 +17,7 @@ export default function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query, user }),
+        body: JSON.stringify({ query, userId }),
       });
       const data = await response.json();
       setResult(data);
@@ -48,13 +48,13 @@ export default function App() {
               />
             </div>
             <div>
-              <label htmlFor="user" className="block text-sm font-medium text-gray-700">User</label>
+              <label htmlFor="userId" className="block text-sm font-medium text-gray-700">User</label>
               <Input
-                id="user"
+                id="userId"
                 type="text"
-                value={user}
+                value={userId}
                 onChange={(e) => setUser(e.target.value)}
-                placeholder="Enter user email"
+                placeholder="Enter user"
                 className="mt-1"
               />
             </div>
